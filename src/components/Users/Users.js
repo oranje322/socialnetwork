@@ -2,7 +2,9 @@ import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import React from "react";
 import {NavLink} from "react-router-dom";
-
+import * as axios from 'axios'
+import {getUsers, usersAPI} from "../../api/api";
+import {follow} from "../../redux/users-reducer";
 
 const Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -36,11 +38,13 @@ const Users = (props) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button onClick={() => {
+                            ? <button disabled={props.followingProgress.some(id => id === u.id)} onClick={() => {
                                 props.unfollow(u.id)
+
                             }}>Unfollow</button>
-                            : <button onClick={() => {
+                            : <button disabled={props.followingProgress.some(id => id === u.id)} onClick={() => {
                                 props.follow(u.id)
+
                             }}>Follow</button>}
 
                     </div>
