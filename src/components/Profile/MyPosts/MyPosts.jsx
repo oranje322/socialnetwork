@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
+import {Field, reduxForm} from "redux-form";
 
 const MyPosts = (props) => {
 
@@ -9,26 +10,17 @@ const MyPosts = (props) => {
 
     let newPostElement = React.createRef();
 
-    let onAddPost = () => {
-        props.addPost();
+    const addPost = (values) => {
+        props.addPost(values.newPostText)
     }
 
-    let onPostChange = () => {
-        let text = newPostElement.current.value;
-        props.updateNewPostText(text);
-    }
+
 
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
-                <div>
-                    <textarea onChange={ onPostChange } ref={newPostElement}
-                              value={props.newPostText} />
-                </div>
-                <div>
-                    <button onClick={ onAddPost }>Add post</button>
-                </div>
+                <AddPostFormRedux onSubmit={addPost}/>
             </div>
             <div className={s.posts}>
                 { postsElements }
@@ -36,5 +28,16 @@ const MyPosts = (props) => {
         </div>
     )
 }
+
+const AddPostForm = props => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field component={'textarea'} name={'newPostText'} placeholder={'Enter your message'}/>
+            <div><button>Send</button></div>
+        </form>
+    )
+}
+
+const AddPostFormRedux = reduxForm({form: 'ProfileAddNewPostForm'})(AddPostForm)
 
 export default MyPosts;
