@@ -8,7 +8,6 @@ import {Redirect} from "react-router-dom";
 import style from '../common/FormControls/FormControls.module.css'
 
 
-
 const LoginForm = props => {
     const { handleSubmit } = props;
 
@@ -28,11 +27,8 @@ const LoginForm = props => {
                 {
                     props.error && <div className={style.formError}>{props.error}</div>
                 }
-
             </div>
-
         </form>
-     
     )
 }
 
