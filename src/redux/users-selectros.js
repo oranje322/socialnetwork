@@ -2,7 +2,6 @@ import React from "react";
 import { createSelector } from 'reselect'
 
 export const getUsersSelector = state => {
-    debugger
     return state.usersPage.users
 }
 
